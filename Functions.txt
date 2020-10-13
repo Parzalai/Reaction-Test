@@ -1,0 +1,89 @@
+def Start(event):
+    StartBt.destroy()
+    ExpLb2.destroy()
+    ExpLbY.destroy()
+    ExpLbN.destroy()
+    ExpLb1.destroy()
+    WelcomeLb1.destroy()
+    #ClickBt1.place(x=0,y=0)
+    #ClickBt1.config(bg = 'red')
+    WarnLb1.place(x=206,y=45)
+    BegBt1.place(x=225,y=20)
+    print('.') 
+    message=print('good, red click room')
+    
+    root.config(bg='red')
+    VersLb.config(bg='red')
+
+
+#===---===---===---===---===---===---===---===---===---===---===---===---====---===---===---===---Start function END
+#===---===---===---===---===---===---===---===---===---===---===---===---====---===---===---===---Begin function BEGIN
+
+def Begin(event):
+    print('timer gen check')
+    time = randint(1000, 10000)
+    print('check, timer to greenscreen start')
+    root.after(time)
+# /\generates rand integer, root.after will wait that amount of time before pushing next command
+
+    print('good, greenscreen up')#checkpoint
+    BegBt1.destroy()
+    WarnLb1.destroy()
+    
+# /\destroys all uneeded widgets leaving only click
+
+    Strt_Time = start_time()
+    print(Strt_Time)
+    
+# /\begins timer
+    ClickBt1.place(x=207,y=75)
+    ClickBt1.bind('<Button-1>', Cliick)
+    ClickBt1.config(text='CLICK!')
+    
+# /\only now binds CLICK button to prevent misclick prior to greenscreening
+    root.config(bg='green')
+    VersLb.config(bg='green')
+    
+# /\changes all to green, indicating to the user that they have to click now.
+
+#===---===---===---===---===---===---===---===---===---===---===---===---====---===---===---===---BEGIN function END
+#===---===---===---===---===---===---===---===---===---===---===---===---====---===---===---===---start_time function BEGIN
+
+def start_time():
+   global initial
+   print("Timer", "The timer will now begin")
+   initial = time.time()
+   return initial
+
+#===---===---===---===---===---===---===---===---===---===---===---===---====---===---===---===---start_time function END
+#===---===---===---===---===---===---===---===---===---===---===---===---====---===---===---===---stop_time function BEGIN
+
+def stop_time(event):
+    global finalVal, final, timerDisplay2
+    final = time.time()
+    print("Timer", final - initial)
+    finalTim = final - initial
+    finalVal = round(finalTim, 3)
+    timerDisplay2 = Label(root, text = finalVal, bg = 'grey')
+    timerDisplay2.config(font=('Calibri', 15))
+    return finalVal, initial
+  
+#===---===---===---===---===---===---===---===---===---===---===---===---====---===---===---===---stop_time function END
+#===---===---===---===---===---===---===---===---===---===---===---===---====---===---===---===---Cliick function BEGIN
+
+def Cliick(event):
+    global timerDisplay1, timerDisplay2
+    stptime = stop_time(event)
+# /\ends timer
+    print(stptime)
+# /\prints the time taken.
+    root.config(bg='grey')
+    VersLb.config(bg='grey')
+    ClickBt1.place_forget()
+    timerDisplay1.place(x=150, y=30)
+    timerDisplay2.place(x=150,y=62)
+# /\ returns to normal state
+    
+#===---===---===---===---===---===---===---===---===---===---===---===---====---===---===---===---Cliick function END
+    
+# /\ FUNCTION DEFS=====================================================================================
